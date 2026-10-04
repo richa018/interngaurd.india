@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin · InternVerify</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23275df5%27/%3E%3Cpath d=%27M18 34l10 10 18-22%27 stroke=%27white%27 stroke-width=%277%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/theme.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">InternVerify</span>
+      <span class="brand-tag">verify before you accept</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Lookup</a>
+      <a href="browse.html">Browse all</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container admin-shell">
+
+  <div class="admin-card hidden" id="setupCard">
+    <h2>Welcome! Create your admin account</h2>
+    <p>This is the first run. The account you create here becomes the superadmin. This form disappears once it is used.</p>
+    <form id="setupForm">
+      <div class="field"><label for="setupName">Name</label><input type="text" id="setupName" required /></div>
+      <div class="field"><label for="setupEmail">Email</label><input type="email" id="setupEmail" required /></div>
+      <div class="field"><label for="setupPassword">Password (min 8 characters)</label><input type="password" id="setupPassword" minlength="8" required /></div>
+      <button type="submit" class="btn-primary">Create admin &amp; continue</button>
+    </form>
+  </div>
+
+  <div class="admin-card" id="loginCard">
+    <h2>Admin login</h2>
+    <form id="loginForm">
+      <div class="field"><label for="loginEmail">Email</label><input type="email" id="loginEmail" required /></div>
+      <div class="field"><label for="loginPassword">Password</label><input type="password" id="loginPassword" required /></div>
+      <button type="submit" class="btn-primary">Log in</button>
+    </form>
+  </div>
+
+  <div id="adminPanel" class="hidden">
+    <div class="admin-card" style="display:flex; justify-content:space-between; align-items:center;">
+      <div>Logged in as <strong id="adminName"></strong> (<span id="adminRole"></span>)</div>
+      <button class="btn-outline" id="logoutBtn">Log out</button>
+    </div>
+
+    <div class="admin-card">
+      <div class="inline-actions" id="tabBar">
+        <button class="btn-primary" data-tab="companies">Companies</button>
+        <button class="btn-outline" data-tab="reports">Reports</button>
+        <button class="btn-outline hidden" data-tab="admins" id="adminsTabBtn">Admins</button>
+      </div>
+    </div>
+
+    <section id="tab-companies">
+      <div class="admin-card">
+        <h2 id="companyFormTitle">Add a company</h2>
+        <form id="companyForm">
+          <div class="two-col">
+            <div class="field"><label>Name *</label><input type="text" id="cName" required /></div>
+            <div class="field"><label>City *</label><input type="text" id="cCity" required /></div>
+            <div class="field"><label>Industry</label><input type="text" id="cIndustry" /></div>
+            <div class="field"><label>State</label><input type="text" id="cState" placeholder="Gujarat" /></div>
+            <div class="field"><label>Website</label><input type="text" id="cWebsite" /></div>
+            <div class="field"><label>Email</label><input type="text" id="cEmail" /></div>
+            <div class="field"><label>Phone</label><input type="text" id="cPhone" /></div>
+            <div class="field"><label>Address</label><input type="text" id="cAddress" /></div>
+          </div>
+          <div class="field"><label>Description</label><textarea id="cDescription" rows="3"></textarea></div>
+          <div class="field"><label>Sources (one per line: <code>Label | https://url</code>)</label><textarea id="cSources" rows="3" placeholder="Company website | https://example.com"></textarea></div>
+          <div class="field"><label>Verification notes</label><input type="text" id="cNotes" /></div>
+          <div class="field"><label>Tags (comma separated)</label><input type="text" id="cTags" placeholder="web development, internship" /></div>
+          <div class="field checkbox-row"><input type="checkbox" id="cVerified" /><label for="cVerified" style="margin:0;">Mark as verified</label></div>
+          <button type="submit" class="btn-green">Save company</button>
+          <button type="button" class="btn-outline hidden" id="cancelEdit">Cancel edit</button>
+          <span id="companyFormMode" style="margin-left:10px; color:var(--text-muted); font-size:13px;"></span>
+        </form>
+      </div>
+
+      <div class="admin-card">
+        <h2>Bulk import companies</h2>
+        <p style="color:var(--text-muted);font-size:14px;">One company per line: <code>Name, City, Industry, Website, Email, Phone</code> (only Name and City are required; tabs also work). Existing names are skipped. Imported companies start as not verified. Max 500 per import.</p>
+        <textarea id="bulkText" rows="6" placeholder="Example Pvt Ltd, Surat, Software &amp; IT, https://example.com"></textarea>
+        <div style="margin-top:10px;"><button type="button" class="btn-primary" id="bulkBtn">Import</button></div>
+      </div>
+
+      <div class="admin-card">
+        <h2>All companies <small id="companyCount" style="color:var(--text-muted); font-weight:400;"></small></h2>
+        <div class="browse-toolbar" style="margin-bottom:12px;">
+          <input type="text" id="companySearch" placeholder="Search name, city, industry, tag" />
+          <button class="btn-outline" id="companySearchBtn">Search</button>
+        </div>
+        <div class="table-scroll"><table class="admin-table">
+          <thead><tr><th>Name</th><th>City</th><th>Verified</th><th>Trust</th><th>Actions</th></tr></thead>
+          <tbody id="companyTableBody"></tbody>
+        </table></div>
+        <div class="pagination" id="companyPagination"></div>
+      </div>
+    </section>
+
+    <section id="tab-reports" class="hidden">
+      <div class="admin-card">
+        <h2>Reports</h2>
+        <div class="browse-toolbar" style="margin-bottom:12px;">
+          <select id="reportStatusFilter">
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+            <option value="">All</option>
+          </select>
+          <select id="reportTypeFilter">
+            <option value="">All types</option>
+            <option value="scam">Scam</option>
+            <option value="suspicious">Suspicious</option>
+            <option value="positive_experience">Positive experience</option>
+            <option value="outdated_info">Outdated info</option>
+          </select>
+          <button class="btn-outline" id="reportFilterBtn">Apply</button>
+        </div>
+        <div class="table-scroll"><table class="admin-table">
+          <thead><tr><th>Company</th><th>Type</th><th>Message</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="reportsTableBody"></tbody>
+        </table></div>
+        <div class="pagination" id="reportPagination"></div>
+      </div>
+    </section>
+
+    <section id="tab-admins" class="hidden">
+      <div class="admin-card">
+        <h2>Add an admin</h2>
+        <form id="adminForm">
+          <div class="two-col">
+            <div class="field"><label>Name</label><input type="text" id="aName" required /></div>
+            <div class="field"><label>Email</label><input type="email" id="aEmail" required /></div>
+            <div class="field"><label>Password (8+ chars)</label><input type="password" id="aPassword" minlength="8" required /></div>
+            <div class="field"><label>Role</label>
+              <select id="aRole"><option value="moderator">Moderator</option><option value="superadmin">Superadmin</option></select>
+            </div>
+          </div>
+          <button type="submit" class="btn-green">Create admin</button>
+        </form>
+      </div>
+      <div class="admin-card">
+        <h2>Admin accounts</h2>
+        <div class="table-scroll"><table class="admin-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Actions</th></tr></thead>
+          <tbody id="adminsTableBody"></tbody>
+        </table></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="js/api.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

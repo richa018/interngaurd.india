@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Browse companies · InternVerify</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23275df5%27/%3E%3Cpath d=%27M18 34l10 10 18-22%27 stroke=%27white%27 stroke-width=%277%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E" />
+<meta name="description" content="InternVerify: check Gujarat companies and internship offers, trust scores and student scam reports before you apply or pay." />
+<meta property="og:title" content="InternVerify - Verify Gujarat companies &amp; internships" />
+<meta property="og:description" content="Search trust scores and student reports before you accept an offer." />
+<meta name="theme-color" content="#275df5" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/theme.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">InternVerify</span>
+      <span class="brand-tag">verify before you accept</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Lookup</a>
+      <a href="browse.html" class="current">Browse all</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <div class="browse-toolbar">
+    <input type="text" id="industryFilter" placeholder="Industry" />
+    <input type="text" id="qFilter" placeholder="Company, industry or keyword" />
+    <input type="text" id="cityFilter" placeholder="Filter by city" />
+    <select id="verifiedFilter">
+      <option value="">All companies</option>
+      <option value="true">Verified only</option>
+      <option value="false">Unverified only</option>
+    </select>
+    <select id="sortFilter">
+      <option value="newest">Newest first</option>
+      <option value="trust">Highest trust score</option>
+      <option value="popular">Most searched</option>
+      <option value="name">Name A–Z</option>
+    </select>
+    <button class="btn-primary" id="applyFilters">Apply</button>
+    <button class="btn-outline" id="clearFilters" type="button">Clear</button>
+  </div>
+
+  <div id="resultCount" class="result-count"></div>
+  <div class="company-grid" id="companyGrid"></div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">Records are compiled from public sources and manually spot-checked. Always do your own check before sharing money or personal documents.</div>
+</footer>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="js/api.js"></script>
+<script src="js/browse.js"></script>
+</body>
+</html>

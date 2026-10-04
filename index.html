@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Company Lookup · InternVerify</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23275df5%27/%3E%3Cpath d=%27M18 34l10 10 18-22%27 stroke=%27white%27 stroke-width=%277%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E" />
+<meta name="description" content="InternVerify: check Gujarat companies and internship offers, trust scores and student scam reports before you apply or pay." />
+<meta property="og:title" content="InternVerify - Verify Gujarat companies &amp; internships" />
+<meta property="og:description" content="Search trust scores and student reports before you accept an offer." />
+<meta name="theme-color" content="#275df5" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/theme.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">InternVerify</span>
+      <span class="brand-tag">verify before you accept</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="current">Lookup</a>
+      <a href="browse.html">Browse all</a>
+      <a href="#redflags">Red flags</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Look up a company before you accept the offer.</h1>
+    <p class="lede">
+      Search our records of Gujarat employers and internship sources. Enter a company name
+      or a city — we'll pull up the one report that matches, plus scam reports from other students.
+    </p>
+
+    <div class="search-card">
+      <div class="search-row">
+        <input type="text" id="searchInput" placeholder="Company name or city, e.g. &quot;Ahmedabad&quot; or &quot;Zydus&quot;" autocomplete="off" />
+        <button class="btn-primary" id="searchBtn">Search</button>
+        <div class="suggestion-list" id="suggestionList"></div>
+      </div>
+      <p class="hero-note" id="heroNote">
+        No company selected yet. Search a name or city above — the moment we find one match, its report opens automatically.
+      </p>
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip">Ahmedabad</button><button class="chip">Surat</button><button class="chip">Vadodara</button>
+      <button class="chip">Rajkot</button><button class="chip">Gandhinagar</button><button class="chip">Software &amp; IT</button><button class="chip">Pharmaceuticals</button>
+    </div>
+  </div>
+</section>
+
+<section class="stats-strip" id="statsStrip">
+  <div class="stat-cell"><div class="stat-num" id="statTotal">–</div><div class="stat-label">Companies on record</div></div>
+  <div class="stat-cell"><div class="stat-num" id="statVerified">–</div><div class="stat-label">Verified employers</div></div>
+  <div class="stat-cell"><div class="stat-num" id="statScam">–</div><div class="stat-label">Approved scam reports</div></div>
+  <div class="stat-cell"><div class="stat-num" id="statCities">–</div><div class="stat-label">Cities covered</div></div>
+</section>
+
+<section class="sec container">
+  <h2>Top companies on InternVerify</h2>
+  <div class="top-grid" id="topGrid"></div>
+</section>
+
+<section class="sec container"><h2>Explore companies by city</h2><div class="city-grid"><a class="city-card" href="browse.html?city=Ahmedabad"><b>Ahmedabad</b><span>View companies →</span></a><a class="city-card" href="browse.html?city=Gandhinagar"><b>Gandhinagar</b><span>View companies →</span></a><a class="city-card" href="browse.html?city=Vadodara"><b>Vadodara</b><span>View companies →</span></a><a class="city-card" href="browse.html?city=Surat"><b>Surat</b><span>View companies →</span></a><a class="city-card" href="browse.html?city=Rajkot"><b>Rajkot</b><span>View companies →</span></a><a class="city-card" href="browse.html?city=Anand"><b>Anand</b><span>View companies →</span></a><a class="city-card" href="browse.html?city=Bharuch"><b>Bharuch</b><span>View companies →</span></a><a class="city-card" href="browse.html?city=Valsad"><b>Valsad</b><span>View companies →</span></a></div></section>
+<section class="sec container"><h2>Explore by industry</h2><div class="chips left"><a class="chip" href="browse.html?industry=Software%20%26%20IT">Software &amp; IT</a><a class="chip" href="browse.html?industry=Pharmaceuticals">Pharmaceuticals</a><a class="chip" href="browse.html?industry=Chemicals">Chemicals</a><a class="chip" href="browse.html?industry=Education">Education</a><a class="chip" href="browse.html?industry=Power%20%26%20Energy">Power &amp; Energy</a><a class="chip" href="browse.html?industry=Manufacturing">Manufacturing</a><a class="chip" href="browse.html?industry=Textiles">Textiles</a><a class="chip" href="browse.html?industry=Food%20%26%20Beverage">Food &amp; Beverage</a></div></section>
+<section class="sec container"><h2>How to read the trust score</h2><div class="legend">
+<div class="lg lg-g"><b>80-100</b><span>Well established. Still confirm the offer in writing.</span></div>
+<div class="lg lg-a"><b>50-79</b><span>Listed but not fully verified. Ask for proof and never pay upfront.</span></div>
+<div class="lg lg-r"><b>0-49</b><span>High risk or scam reports received. Avoid sharing documents or money.</span></div></div></section>
+<section class="sec container" id="redflags"><h2>Internship red flags to watch for</h2><div class="flag-grid"><div class="flag"><div class="fi">💸</div><h3>Asks you to pay</h3><p>Real internships never charge registration, training, kit or "security" fees.</p></div><div class="flag"><div class="fi">📧</div><h3>Free email address</h3><p>Offer letters from gmail/yahoo instead of a company domain are a warning sign.</p></div><div class="flag"><div class="fi">⚡</div><h3>Instant selection</h3><p>Selected without an interview or any test? Be careful.</p></div><div class="flag"><div class="fi">📱</div><h3>Only WhatsApp / Telegram</h3><p>Refuses calls, video meets or an office address? Walk away.</p></div><div class="flag"><div class="fi">📄</div><h3>No offer letter</h3><p>No written terms, stipend or duration before you start.</p></div><div class="flag"><div class="fi">🔍</div><h3>Cannot be found online</h3><p>No website, LinkedIn page or reviews. Check here first.</p></div></div></section>
+<section class="sec container"><div class="cta"><div><h2>Seen something suspicious?</h2><p>Help other students. Search the company and submit a report; our team reviews every one.</p></div><a class="btn-primary" href="#searchInput" onclick="document.getElementById('searchInput').focus()">Search &amp; report</a></div></section>
+<section class="sec container" id="faq"><h2>Frequently asked questions</h2><div class="faq"><details><summary>Is InternVerify free?</summary><p>Yes. Searching, reading reports and submitting a report are free.</p></details><details><summary>Where does the data come from?</summary><p>Every record is stored in our MongoDB database. Companies are listed from public information and reviewed by our admin team; the Verified badge means our team checked the details.</p></details><details><summary>What does the trust score mean?</summary><p>A 0-100 score based on verification status and approved student reports. It is guidance, not a guarantee.</p></details><details><summary>How do I report a scam?</summary><p>Search the company, scroll to "Report this company" and submit. Approved reports update the score.</p></details><details><summary>A company is missing. What now?</summary><p>Search anyway: if it is not listed, treat that as a reason to be careful and ask for proof of registration.</p></details></div></section>
+
+<section class="how container">
+  <h2>How InternVerify protects you</h2>
+  <div class="how-grid">
+    <div class="how-card"><span>1</span><h3>Search</h3><p>Type a company name or city. Every record comes live from our database.</p></div>
+    <div class="how-card"><span>2</span><h3>Check the trust score</h3><p>See verified contact details, sources and a 0-100 trust score.</p></div>
+    <div class="how-card"><span>3</span><h3>Read student reports</h3><p>Approved scam reports and reviews from other students, before you pay or share documents.</p></div>
+    <div class="how-card"><span>4</span><h3>Report &amp; help others</h3><p>Spotted something wrong? Submit a report; our team reviews it.</p></div>
+  </div>
+</section>
+
+<div class="container report-wrap">
+  <div id="reportArea">
+    <div class="empty-state">
+      <p>Search above to see a full verification report, contact sources, and student-submitted reviews.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container foot-grid">
+    <div><div class="foot-brand">InternVerify</div><p>Verify Gujarat companies and internships before you accept, pay or share documents.</p></div>
+    <div><h4>Explore</h4><a href="browse.html">Browse all companies</a><a href="#redflags">Red flags</a><a href="#faq">FAQ</a></div>
+    <div><h4>Popular cities</h4><a href="browse.html?city=Ahmedabad">Ahmedabad</a><a href="browse.html?city=Vadodara">Vadodara</a><a href="browse.html?city=Surat">Surat</a></div>
+    <div><h4>Note</h4><p>Records come from public sources and manual review. Always do your own check before paying anyone.</p></div>
+  </div>
+  <div class="container copy">© InternVerify · Made for students in Gujarat</div>
+</footer>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script>
+(function(){
+  function esc(t){return String(t||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function run(q){var i=document.getElementById('searchInput');i.value=q;document.getElementById('searchBtn').click();window.scrollTo({top:document.getElementById('reportArea').offsetTop-90,behavior:'smooth'})}
+  document.getElementById('chips').addEventListener('click',function(e){if(e.target.classList.contains('chip'))run(e.target.textContent)});
+  Api.listCompanies({page:1,limit:8,sort:'trust'}).then(function(r){
+    document.getElementById('topGrid').innerHTML=r.items.map(function(c){
+      return '<div class="top-card" data-name="'+esc(c.name)+'"><div class="logo">'+esc(c.name.charAt(0))+'</div><h3>'+esc(c.name)+'</h3><p>'+esc(c.city)+(c.industry?' · '+esc(c.industry):'')+'</p><span class="score'+(c.trustScore<50?' low':'')+'">Trust '+c.trustScore+'/100'+(c.verified?' ✓':'')+'</span></div>'}).join('');
+    document.getElementById('topGrid').addEventListener('click',function(e){var t=e.target.closest('.top-card');if(t)run(t.getAttribute('data-name'))});
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>
